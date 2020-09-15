@@ -184,13 +184,14 @@ def main():
         if md != sys.stdout:
             Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
             template = Env.get_template(args.output)
-            temp = open("temp", 'w')
+            temp = open("temp1", 'w')
             temp.write(template.render(env_dict))
             temp.close()
             mdpp.close()
-            mdpp = open("temp", 'r')
+            mdpp = open("temp1", 'r')
 
         #4.将temp文件用MarkdownPP生成.md文件
+        md = open(args.output, 'w')
         MarkdownPP.MarkdownPP(input=mdpp, output=md, modules=modules, path=path)
         md.close()
         mdpp.close()
