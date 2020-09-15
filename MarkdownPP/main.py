@@ -182,7 +182,7 @@ def main():
 
         #3.将.md文件再用jinja2渲染一次
         if md != sys.stdout:
-            Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
+            #Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
             template = Env.get_template(args.output)
             md = open(args.output, 'w')
             md.write(template.render(env_dict))
@@ -196,7 +196,7 @@ def main():
         mdpp.close()
 
         #5 第二次展开
-        Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
+        #Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
         template = Env.get_template("temp1")
         md = open(args.output, 'w')
         md.write(template.render(env_dict))
