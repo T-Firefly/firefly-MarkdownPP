@@ -184,25 +184,23 @@ def main():
         if md != sys.stdout:
             Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
             template = Env.get_template(args.output)
-            temp = open("temp1", 'w')
-            temp.write(template.render(env_dict))
-            temp.close()
-            mdpp.close()
-            mdpp = open("temp1", 'r')
+            md = open(args.output, 'w')
+            md.write(template.render(env_dict))
+            md.close()
 
-        #4.将temp文件用MarkdownPP生成.md文件
-        md = open(args.output, 'w')
+        #4 temp1为二次渲染后的产物
+        md = open("temp1", 'w')
+        mdpp = open(args.output, 'r')
         MarkdownPP.MarkdownPP(input=mdpp, output=md, modules=modules, path=path)
         md.close()
         mdpp.close()
 
-        #5.将.md文件再用jinja2渲染一次
-        if md != sys.stdout:
-            Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
-            template = Env.get_template(args.output)
-            md = open(args.output, 'w')
-            md.write(template.render(env_dict))
-            md.close()
+        #5 第二次展开
+        Env = Environment(loader = FileSystemLoader(searchpath="./"), undefined=StrictUndefined)
+        template = Env.get_template("temp1")
+        md = open(args.output, 'w')
+        md.write(template.render(env_dict))
+        md.close()
 
 #        mdpp.close()
 
