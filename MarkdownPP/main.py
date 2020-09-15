@@ -176,7 +176,7 @@ def main():
             mdpp = open("temp", 'r')
 
         #2.将temp文件用MarkdownPP生成.md文件, 保存在mdd中
-        mdd = open("temp1", 'r')
+        mdd = open("temp1", 'w')
         MarkdownPP.MarkdownPP(input=mdpp, output=mdd, modules=modules, path=path)
         mdd.close()
         mdpp.close()
